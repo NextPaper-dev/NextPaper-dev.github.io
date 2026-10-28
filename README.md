@@ -5,7 +5,8 @@
   <br /><br />
   <p><strong>Architects of High-Performance Systems & Scalable Commerce Infrastructure</strong></p>
   <p>
-    <a href="https://nextpaper.dev"><strong>nextpaper.dev</strong></a> • 
+    <a href="https://nextpaper-dev.github.io/"><strong>nextpaper-dev.github.io</strong></a> • 
+    <a href="https://nextpaper.dev">nextpaper.dev</a> • 
     <a href="https://github.com/NextPaper-dev">GitHub Organization</a> • 
     <a href="https://github.com/Storesdz">StoresDZ Flagship</a>
   </p>
@@ -54,8 +55,8 @@ NextPaper's current flagship software product is **StoresDZ** — a high-through
 
 ```bash
 # Clone the repository
-git clone https://github.com/NextPaper-dev/nextpaper.dev.git
-cd nextpaper.dev
+git clone https://github.com/NextPaper-dev/NextPaper-dev.github.io.git
+cd NextPaper-dev.github.io
 
 # Install dependencies
 npm install
