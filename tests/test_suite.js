@@ -149,4 +149,6 @@ test('Build Output Verification: dist/ contains compiled landing page', () => {
   const html = fs.readFileSync(indexPath, 'utf-8');
   assert.ok(html.includes('nextpaper.dev') || html.includes('NextPaper'), 'Index HTML must include brand name');
   assert.ok(html.includes('StoresDZ'), 'Index HTML must include StoresDZ reference');
+  assert.ok(!html.includes('<html lang="en" class="dark">'), 'HTML must default to light theme (no dark class)');
+  assert.ok(html.includes('#F8F9FA'), 'Theme meta color must default to light #F8F9FA');
 });

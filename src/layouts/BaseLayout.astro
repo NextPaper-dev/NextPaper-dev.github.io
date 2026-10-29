@@ -14,7 +14,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +25,7 @@ const {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#131416" />
+    <meta name="theme-color" content="#F8F9FA" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -49,15 +49,15 @@ const {
       rel="stylesheet"
     />
 
-    <!-- Theme Initialization: default dark -->
+    <!-- Theme Initialization: default light -->
     <script is:inline>
       (function () {
         try {
           const savedTheme = localStorage.getItem('theme');
-          if (savedTheme === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else {
+          if (savedTheme === 'dark') {
             document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
           }
           const savedLang = localStorage.getItem('nextpaper_lang');
           if (savedLang) {

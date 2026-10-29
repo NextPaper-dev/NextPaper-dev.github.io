@@ -19,7 +19,7 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' })
 
 export const Navbar: React.FC<NavbarProps> = ({ currentLang, onLanguageChange }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const t = translations[currentLang].nav;
