@@ -5,47 +5,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        np: {
-          bg: '#07080a',
-          surface: '#0d0f14',
-          card: '#12151d',
-          'card-hover': '#161a24',
-          border: 'rgba(255, 255, 255, 0.08)',
-          'border-bright': 'rgba(255, 255, 255, 0.18)',
-          muted: '#8b949e',
-          text: '#f0f6fc',
-          cyan: '#00e5ff',
-          'cyan-glow': 'rgba(0, 229, 255, 0.25)',
-          amber: '#ff6b00',
-          'amber-glow': 'rgba(255, 107, 0, 0.25)',
-          silver: '#e2e8f0',
-        },
+        'background-dark': '#131416',
+        'background-light': '#F8F9FA',
+        'surface': '#1E1F22',
+        'surface-light': '#FFFFFF',
+        'primary-container': '#4d8efe',
+        'primary': '#adc6ff',
+        'tertiary': '#fbbc06',
+        'tertiary-fixed-dim': '#fbbc06',
+        'outline-variant': '#424753',
+        'outline': '#8c909f',
+        'text-light-primary': '#202124',
+        'on-surface-variant': '#c2c6d5',
+        'emerald-accent': '#89fa9b',
+        'storesdz-blue': '#2563eb',
+        'storesdz-dark': '#0b0f19',
       },
       fontFamily: {
-        sans: ['Geist', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['Geist Mono', 'JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['"Roboto Flex"', 'Inter', '-apple-system', 'sans-serif'],
+        display: ['"Roboto Flex"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
-      backgroundImage: {
-        'blueprint-grid': 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
-        'cyan-amber-radial': 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 229, 255, 0.15), rgba(255, 107, 0, 0.08), transparent 70%)',
-      },
-      animation: {
-        'pulse-subtle': 'pulseSubtle 6s ease-in-out infinite',
-        'border-beam': 'borderBeam 8s linear infinite',
-        'glow-cyan': 'glowCyan 4s ease-in-out infinite alternate',
-      },
-      keyframes: {
-        pulseSubtle: {
-          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
-          '50%': { opacity: '0.9', transform: 'scale(1.02)' },
-        },
-        borderBeam: {
-          '100%': { offsetDistance: '100%' },
-        },
-        glowCyan: {
-          '0%': { filter: 'drop-shadow(0 0 12px rgba(0,229,255,0.3))' },
-          '100%': { filter: 'drop-shadow(0 0 24px rgba(0,229,255,0.6)) drop-shadow(0 0 40px rgba(255,107,0,0.3))' },
-        },
+      boxShadow: {
+        'glow-primary': '0 0 25px -5px rgba(77, 142, 254, 0.4)',
+        'glow-tertiary': '0 0 25px -5px rgba(251, 188, 6, 0.35)',
       },
     },
   },

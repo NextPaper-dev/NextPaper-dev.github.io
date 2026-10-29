@@ -1,5 +1,6 @@
 ---
 import '../styles/globals.css';
+import { AmbientCanvas } from '../components/AmbientCanvas';
 
 interface Props {
   title?: string;
@@ -7,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = "NextPaper.dev — High-Performance Systems & Modern Commerce Infrastructure",
-  description = "NextPaper is a high-profile systems engineering studio. Architects of hyper-scalable Go backends, Rust edge engines, and StoresDZ multi-tenant commerce."
+  title = "nextpaper.dev — High-Performance Systems & Modern Commerce Engine",
+  description = "NextPaper is an elite software development collective & systems studio. Scaling startups from zero to production with high-throughput Go/Rust architectures and StoresDZ commerce."
 } = Astro.props;
 ---
 
@@ -24,32 +25,55 @@ const {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#07080a" />
+    <meta name="theme-color" content="#131416" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nextpaper.dev/" />
+    <meta property="og:url" content="https://nextpaper-dev.github.io/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/assets/nextpaper-logo.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://nextpaper.dev/" />
+    <meta property="twitter:url" content="https://nextpaper-dev.github.io/" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="/assets/nextpaper-logo.jpg" />
 
-    <!-- Modern Typography Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Typography Fonts: JetBrains Mono, Roboto Flex, Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Roboto+Flex:opsz,wght@8..144,300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme Initialization: default dark -->
+    <script is:inline>
+      (function () {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+          const savedLang = localStorage.getItem('nextpaper_lang');
+          if (savedLang) {
+            document.documentElement.lang = savedLang;
+          }
+        } catch {
+          // Ignore
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-np-bg text-np-text antialiased selection:bg-cyan-500/30 selection:text-white relative min-h-screen">
-    <!-- Top Ambient Glow Field -->
-    <div class="pointer-events-none fixed inset-0 z-0 bg-blueprint opacity-60"></div>
-    <div class="pointer-events-none fixed -top-[200px] left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-cyan-500/10 via-orange-500/5 to-transparent blur-3xl -z-10 rounded-full"></div>
-    
+  <body class="bg-background-light dark:bg-background-dark text-text-light-primary dark:text-surface-light font-body-md text-body-md transition-colors duration-300 antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-white">
+    <!-- Ambient Canvas: Grid & Floating Math/Code Generation -->
+    <AmbientCanvas client:load />
+
+    <!-- App / Slot Content -->
     <div class="relative z-10 flex flex-col min-h-screen">
       <slot />
     </div>

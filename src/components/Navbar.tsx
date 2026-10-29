@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { translations, type Language } from '../data/translations';
+
+interface NavbarProps {
+  currentLang: Language;
+  onLanguageChange: (lang: Language) => void;
+}
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -11,161 +17,189 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' })
   </svg>
 );
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<NavbarProps> = ({ currentLang, onLanguageChange }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const t = translations[currentLang].nav;
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
+
+    // Initial theme check
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    setIsDark(isDarkMode);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    if (nextDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  const toggleLanguage = () => {
+    const nextLang: Language = currentLang === 'en' ? 'fr' : 'en';
+    onLanguageChange(nextLang);
+  };
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 w-full border-b ${
         scrolled
-          ? 'bg-[#07080a]/85 backdrop-blur-xl border-white/[0.08] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)]'
-          : 'bg-transparent border-white/[0.04]'
+          ? 'bg-surface-light/85 dark:bg-background-dark/85 backdrop-blur-xl border-slate-200 dark:border-outline-variant/30 shadow-sm'
+          : 'bg-transparent border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg">
-          <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/10 group-hover:border-cyan-500/50 transition-colors shadow-sm">
-            <img
-              src="/assets/nextpaper-icon.jpg"
-              alt="NextPaper"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+        
+        {/* Brand & Status */}
+        <div className="flex items-center gap-4 sm:gap-6">
+          <a href="#" className="flex items-center gap-2.5 group focus:outline-none">
+            <div className="w-8 h-8 rounded-lg overflow-hidden border border-slate-300 dark:border-outline-variant/40 bg-surface shadow-sm flex items-center justify-center p-0.5 group-hover:border-primary-container transition-colors">
+              <img
+                src="/assets/nextpaper-icon.jpg"
+                alt="NextPaper icon"
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-bold tracking-tight text-text-light-primary dark:text-surface-light text-base leading-tight">
+                nextpaper<span className="text-primary-container dark:text-primary">.dev</span>
+              </span>
+            </div>
+          </a>
+
+          {/* Status Pill */}
+          <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-light dark:bg-surface border border-slate-200 dark:border-outline-variant/30 text-xs font-mono text-outline dark:text-on-surface-variant">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>{t.status_online}</span>
           </div>
-          <div className="flex flex-col">
-            <span className="font-extrabold tracking-tight text-white text-base leading-tight flex items-center gap-1.5">
-              NEXTPAPER<span className="text-cyan-400">.</span>DEV
-            </span>
-            <span className="text-[10px] tracking-widest uppercase text-zinc-400 font-mono -mt-0.5">
-              Systems Studio
-            </span>
-          </div>
-        </a>
+        </div>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-zinc-300">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-on-surface-variant">
           <a
-            href="#flagship"
-            className="px-3.5 py-1.5 rounded-full hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-2 group"
+            href="#storesdz"
+            className="hover:text-primary-container dark:hover:text-primary transition-colors flex items-center gap-1.5"
           >
-            <span>StoresDZ</span>
-            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-orange-500/20 border border-cyan-500/30 text-cyan-300 font-semibold group-hover:border-cyan-400 transition-colors">
-              Flagship
+            <span>{t.storesdz}</span>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container dark:text-primary font-semibold">
+              v1.0
             </span>
           </a>
           <a
-            href="#architecture"
-            className="px-3.5 py-1.5 rounded-full hover:text-white hover:bg-white/[0.05] transition-colors"
+            href="#team"
+            className="hover:text-primary-container dark:hover:text-primary transition-colors"
           >
-            Architecture
+            {t.team}
           </a>
           <a
-            href="#systems"
-            className="px-3.5 py-1.5 rounded-full hover:text-white hover:bg-white/[0.05] transition-colors"
+            href="#capabilities"
+            className="hover:text-primary-container dark:hover:text-primary transition-colors"
           >
-            Systems DNA
-          </a>
-          <a
-            href="#terminal"
-            className="px-3.5 py-1.5 rounded-full hover:text-white hover:bg-white/[0.05] transition-colors flex items-center gap-1.5"
-          >
-            <Terminal className="w-3.5 h-3.5 text-zinc-400" />
-            <span>Interactive CLI</span>
+            {t.services}
           </a>
         </nav>
 
-        {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right Actions: Lang, Theme, Github, Contact */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          
+          {/* Language Switcher Button */}
+          <button
+            onClick={toggleLanguage}
+            className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-outline-variant/40 bg-surface-light dark:bg-surface text-slate-700 dark:text-on-surface-variant hover:text-text-light-primary dark:hover:text-surface-light text-xs font-mono font-semibold flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
+            aria-label="Toggle language English / French"
+            title="Switch Language (EN / FR)"
+          >
+            <Globe className="w-3.5 h-3.5 text-primary-container" />
+            <span>{currentLang.toUpperCase()}</span>
+          </button>
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg border border-slate-200 dark:border-outline-variant/40 bg-surface-light dark:bg-surface text-slate-700 dark:text-on-surface-variant hover:text-text-light-primary dark:hover:text-surface-light transition-all active:scale-95 shadow-sm"
+            aria-label="Toggle theme light / dark"
+          >
+            {isDark ? (
+              <Sun className="w-4 h-4 text-tertiary" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-700" />
+            )}
+          </button>
+
+          {/* GitHub link */}
           <a
             href="https://github.com/NextPaper-dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] border border-white/[0.06] hover:border-white/[0.15] transition-all"
+            className="p-2 rounded-lg border border-slate-200 dark:border-outline-variant/40 bg-surface-light dark:bg-surface text-slate-700 dark:text-on-surface-variant hover:text-text-light-primary dark:hover:text-surface-light transition-all"
             aria-label="GitHub Organization"
           >
             <GithubIcon className="w-4 h-4" />
           </a>
-          
+
+          {/* Primary Contact CTA */}
           <a
-            href="#contact"
-            className="relative inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold tracking-wide text-white uppercase rounded-lg overflow-hidden group border border-white/[0.12] bg-[#12151d] hover:border-cyan-400/50 transition-all shadow-sm"
+            href="mailto:rafafaycal@gmail.com"
+            className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-primary-container text-white font-semibold text-xs tracking-wide uppercase shadow-sm hover:opacity-95 transition-all active:scale-95"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-            <span className="relative flex items-center gap-1.5">
-              <span>Initiate Project</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </span>
+            {t.contact}
           </a>
+
+          {/* Mobile Menu Trigger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-slate-700 dark:text-on-surface-variant hover:text-text-light-primary dark:hover:text-surface-light"
+            aria-label="Open menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
 
-        {/* Mobile menu trigger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-zinc-400 hover:text-white focus:outline-none"
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-white/[0.08] bg-[#07080a]/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
+        <div className="md:hidden border-b border-slate-200 dark:border-outline-variant/40 bg-surface-light dark:bg-background-dark p-4 space-y-3 shadow-lg">
           <a
-            href="#flagship"
+            href="#storesdz"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg text-base font-medium text-white hover:bg-white/[0.06]"
+            className="block px-3 py-2 rounded-lg text-sm font-medium text-text-light-primary dark:text-surface-light hover:bg-slate-100 dark:hover:bg-surface"
           >
-            StoresDZ <span className="text-xs text-cyan-400 ml-2 font-mono">FLAGSHIP PRODUCT</span>
+            {t.storesdz}
           </a>
           <a
-            href="#architecture"
+            href="#team"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg text-base font-medium text-zinc-300 hover:bg-white/[0.06]"
+            className="block px-3 py-2 rounded-lg text-sm font-medium text-text-light-primary dark:text-surface-light hover:bg-slate-100 dark:hover:bg-surface"
           >
-            Architecture
+            {t.team}
           </a>
           <a
-            href="#systems"
+            href="#capabilities"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg text-base font-medium text-zinc-300 hover:bg-white/[0.06]"
+            className="block px-3 py-2 rounded-lg text-sm font-medium text-text-light-primary dark:text-surface-light hover:bg-slate-100 dark:hover:bg-surface"
           >
-            Systems DNA
+            {t.services}
           </a>
           <a
-            href="#terminal"
+            href="mailto:rafafaycal@gmail.com"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg text-base font-medium text-zinc-300 hover:bg-white/[0.06]"
+            className="block px-3 py-2 rounded-lg text-sm font-semibold bg-primary-container text-white text-center rounded-lg"
           >
-            Interactive CLI
+            {t.contact}
           </a>
-          <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between">
-            <a
-              href="https://github.com/NextPaper-dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white"
-            >
-              <GithubIcon className="w-4 h-4" />
-              <span>GitHub Organization</span>
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-1.5 text-xs font-semibold uppercase bg-cyan-500/20 text-cyan-300 rounded-md border border-cyan-500/30"
-            >
-              Contact
-            </a>
-          </div>
         </div>
       )}
     </header>

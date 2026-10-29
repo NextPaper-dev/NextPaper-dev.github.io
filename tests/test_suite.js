@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(ROOT_DIR, 'src');
 const ASSETS_DIR = path.join(ROOT_DIR, 'public/assets');
+const STORESDZ_ASSETS_DIR = path.join(ROOT_DIR, 'public/assets/storesdz');
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
 
 // Helper to recursively get all files in a directory
@@ -51,18 +52,33 @@ test('Rule Check: No code file in src/ exceeds 500 lines', () => {
   );
 });
 
-test('Asset Verification: NextPaper brand assets exist and are valid', () => {
-  const requiredAssets = [
+test('Asset Verification: Brand assets and StoresDZ screenshots exist', () => {
+  const brandAssets = [
     'nextpaper-logo.jpg',
     'nextpaper-icon.jpg',
     'nextpaper-badge.jpg'
   ];
 
-  for (const asset of requiredAssets) {
+  for (const asset of brandAssets) {
     const assetPath = path.join(ASSETS_DIR, asset);
-    assert.ok(fs.existsSync(assetPath), `Asset missing: ${asset}`);
+    assert.ok(fs.existsSync(assetPath), `Brand asset missing: ${asset}`);
     const stats = fs.statSync(assetPath);
-    assert.ok(stats.size > 1000, `Asset file is unexpectedly small: ${asset} (${stats.size} bytes)`);
+    assert.ok(stats.size > 1000, `Asset file is too small: ${asset}`);
+  }
+
+  const storesdzScreens = [
+    'landing.png',
+    'dashboard.png',
+    'templates.png',
+    'storefront.png',
+    'settings.png'
+  ];
+
+  for (const screen of storesdzScreens) {
+    const screenPath = path.join(STORESDZ_ASSETS_DIR, screen);
+    assert.ok(fs.existsSync(screenPath), `StoresDZ screenshot missing: ${screen}`);
+    const stats = fs.statSync(screenPath);
+    assert.ok(stats.size > 1000, `StoresDZ screenshot too small: ${screen}`);
   }
 });
 
@@ -70,10 +86,12 @@ test('Component Verification: Key React components are intact', () => {
   const components = [
     'Navbar.tsx',
     'HeroSection.tsx',
-    'StoresDZShowcase.tsx',
-    'SystemsBento.tsx',
-    'InteractiveTerminal.tsx',
-    'Footer.tsx'
+    'AmbientCanvas.tsx',
+    'StoresDZMinimal.tsx',
+    'StartupCapabilities.tsx',
+    'TeamSection.tsx',
+    'Footer.tsx',
+    'App.tsx'
   ];
 
   for (const comp of components) {
@@ -84,12 +102,33 @@ test('Component Verification: Key React components are intact', () => {
   }
 });
 
+test('Translation & Data Verification: EN and FR parity and team data', async () => {
+  const translationsPath = path.join(SRC_DIR, 'data/translations.ts');
+  const teamPath = path.join(SRC_DIR, 'data/team.ts');
+
+  assert.ok(fs.existsSync(translationsPath), 'translations.ts must exist');
+  assert.ok(fs.existsSync(teamPath), 'team.ts must exist');
+
+  const transContent = fs.readFileSync(translationsPath, 'utf-8');
+  assert.ok(transContent.includes('en: {'), 'translations must include en');
+  assert.ok(transContent.includes('fr: {'), 'translations must include fr');
+  assert.ok(transContent.includes('storesdz: {'), 'translations must include storesdz');
+  assert.ok(transContent.includes('team: {'), 'translations must include team');
+  assert.ok(transContent.includes('capabilities: {'), 'translations must include capabilities');
+
+  const teamContent = fs.readFileSync(teamPath, 'utf-8');
+  assert.ok(teamContent.includes('faycal'), 'team must include faycal');
+  assert.ok(teamContent.includes('sidali'), 'team must include sidali');
+  assert.ok(teamContent.includes('nouh'), 'team must include nouh');
+  assert.ok(teamContent.includes('sofian'), 'team must include sofian');
+  assert.ok(teamContent.includes('aymen'), 'team must include aymen');
+});
+
 test('Build Output Verification: dist/ contains compiled landing page', () => {
   const indexPath = path.join(DIST_DIR, 'index.html');
   assert.ok(fs.existsSync(indexPath), 'dist/index.html must exist after npm run build');
 
   const html = fs.readFileSync(indexPath, 'utf-8');
-  assert.ok(html.includes('NEXTPAPER'), 'Index HTML must include NEXTPAPER brand');
-  assert.ok(html.includes('StoresDZ'), 'Index HTML must include StoresDZ showcase');
-  assert.ok(html.includes('High-Performance Systems'), 'Index HTML must include hero headline');
+  assert.ok(html.includes('nextpaper.dev') || html.includes('NextPaper'), 'Index HTML must include brand name');
+  assert.ok(html.includes('StoresDZ'), 'Index HTML must include StoresDZ reference');
 });
