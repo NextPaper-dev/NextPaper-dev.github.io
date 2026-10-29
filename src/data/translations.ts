@@ -26,6 +26,7 @@ export interface Translations {
     title: string;
     subtitle: string;
     minimal_notice: string;
+    request_demo: string;
     view_repo: string;
     screenshots: {
       landing: string;
@@ -113,7 +114,8 @@ export const translations: Record<Language, Translations> = {
       title: 'StoresDZ Multi-Tenant Commerce',
       subtitle: 'A high-throughput e-commerce platform combining a Go Gin API core, Rust Liquid compiler, and an autonomous edge funnel runtime.',
       minimal_notice: 'Showing a preview of our flagship platform. More enterprise systems currently in active development.',
-      view_repo: 'Inspect GitHub Repos',
+      request_demo: 'Request Demo',
+      view_repo: 'Request Demo',
       screenshots: {
         landing: 'Commerce Landing',
         dashboard: 'Merchant Admin',
@@ -215,7 +217,8 @@ export const translations: Record<Language, Translations> = {
       title: 'Commerce Multi-Tenant StoresDZ',
       subtitle: 'Une plateforme e-commerce à très haut débit combinant un cœur d\'API Go Gin, un compilateur Rust Liquid et un runtime autonome d\'entonnoirs de vente.',
       minimal_notice: 'Aperçu condensé de notre plateforme phare. D\'autres systèmes d\'entreprise sont actuellement en développement actif.',
-      view_repo: 'Consulter sur GitHub',
+      request_demo: 'Demander une Démo',
+      view_repo: 'Demander une Démo',
       screenshots: {
         landing: 'Page d\'Accueil Commerce',
         dashboard: 'Tableau de Bord Marchand',

@@ -92,8 +92,8 @@ export const Footer: React.FC<FooterProps> = ({ currentLang = 'en' }) => {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/Storesdz" target="_blank" rel="noopener noreferrer" className="hover:text-primary-container dark:hover:text-primary transition-colors flex items-center gap-1">
-                  <span>StoresDZ Organization</span>
+                <a href="https://app.storesdz.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-container dark:hover:text-primary transition-colors flex items-center gap-1">
+                  <span>StoresDZ App (Demo)</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </li>

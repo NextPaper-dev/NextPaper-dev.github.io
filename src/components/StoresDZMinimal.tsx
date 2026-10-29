@@ -83,14 +83,14 @@ export const StoresDZMinimal: React.FC<StoresDZMinimalProps> = ({ currentLang })
               ))}
             </div>
 
-            {/* GitHub Repo Link */}
+            {/* Request Demo Link */}
             <a
-              href="https://github.com/Storesdz"
+              href="https://app.storesdz.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline ml-auto"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-sm transition-all active:scale-95 ml-auto"
             >
-              <span>{t.view_repo}</span>
+              <span>{t.request_demo}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
