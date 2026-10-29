@@ -80,6 +80,19 @@ test('Asset Verification: Brand assets and StoresDZ screenshots exist', () => {
     const stats = fs.statSync(screenPath);
     assert.ok(stats.size > 1000, `StoresDZ screenshot too small: ${screen}`);
   }
+
+  const teamImages = [
+    'nouh.jpg',
+    'sidali.jpg',
+    'sofian.jpg'
+  ];
+
+  for (const img of teamImages) {
+    const imgPath = path.join(ASSETS_DIR, 'team', img);
+    assert.ok(fs.existsSync(imgPath), `Team profile image missing: ${img}`);
+    const stats = fs.statSync(imgPath);
+    assert.ok(stats.size > 1000, `Team profile image too small: ${img}`);
+  }
 });
 
 test('Component Verification: Key React components are intact', () => {
