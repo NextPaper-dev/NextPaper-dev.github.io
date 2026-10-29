@@ -104,7 +104,8 @@ test('Component Verification: Key React components are intact', () => {
     'StartupCapabilities.tsx',
     'TeamSection.tsx',
     'Footer.tsx',
-    'App.tsx'
+    'App.tsx',
+    'WhatsAppFab.tsx'
   ];
 
   for (const comp of components) {
@@ -113,6 +114,9 @@ test('Component Verification: Key React components are intact', () => {
     const content = fs.readFileSync(compPath, 'utf-8');
     assert.ok(content.includes('export const'), `Component missing named export: ${comp}`);
   }
+
+  const fabContent = fs.readFileSync(path.join(SRC_DIR, 'components/WhatsAppFab.tsx'), 'utf-8');
+  assert.ok(fabContent.includes('213540980238'), 'WhatsAppFab must link to 213540980238');
 });
 
 test('Translation & Data Verification: EN and FR parity and team data', async () => {

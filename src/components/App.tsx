@@ -6,6 +6,7 @@ import { StoresDZMinimal } from './StoresDZMinimal';
 import { StartupCapabilities } from './StartupCapabilities';
 import { TeamSection } from './TeamSection';
 import { Footer } from './Footer';
+import { WhatsAppFab } from './WhatsAppFab';
 
 export const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('en');
@@ -55,6 +56,9 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <Footer currentLang={lang} />
+
+      {/* Floating WhatsApp Action Button */}
+      <WhatsAppFab currentLang={lang} />
     </div>
   );
 };
