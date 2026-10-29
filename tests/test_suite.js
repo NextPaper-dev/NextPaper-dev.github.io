@@ -56,6 +56,7 @@ test('Asset Verification: Brand assets and StoresDZ screenshots exist', () => {
   const brandAssets = [
     'nextpaper-logo.jpg',
     'nextpaper-icon.jpg',
+    'nextpaper-icon.png',
     'nextpaper-badge.jpg'
   ];
 

@@ -61,7 +61,7 @@ export const teamMembers: TeamMember[] = [
     id: 'aymen',
     name: 'Aymen Bnh',
     roleKey: 'aymen',
-    avatar: '/assets/nextpaper-icon.jpg',
+    avatar: '/assets/nextpaper-icon.png',
     avatarFallback: 'AB',
     tags: ['Product Marketing', 'GTM Strategy', 'User Acquisition', 'Analytics'],
     linkedinUrl: 'https://www.linkedin.com/company/nextpaper-dev',

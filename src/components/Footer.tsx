@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ currentLang = 'en' }) => {
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg overflow-hidden border border-outline-variant/40 bg-surface shadow-sm flex items-center justify-center p-0.5">
                 <img
-                  src="/assets/nextpaper-icon.jpg"
+                  src="/assets/nextpaper-icon.png"
                   alt="NextPaper Logo"
                   className="w-full h-full object-cover rounded"
                 />

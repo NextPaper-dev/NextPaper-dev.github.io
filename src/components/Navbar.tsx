@@ -67,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentLang, onLanguageChange })
           <a href="#" className="flex items-center gap-2.5 group focus:outline-none">
             <div className="w-8 h-8 rounded-lg overflow-hidden border border-slate-300 dark:border-outline-variant/40 bg-surface shadow-sm flex items-center justify-center p-0.5 group-hover:border-primary-container transition-colors">
               <img
-                src="/assets/nextpaper-icon.jpg"
+                src="/assets/nextpaper-icon.png"
                 alt="NextPaper icon"
                 className="w-full h-full object-cover rounded"
               />
