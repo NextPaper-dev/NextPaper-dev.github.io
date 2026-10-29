@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, Copy, Check, Sparkles, CheckCircle2, Terminal } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Sparkles, CheckCircle2, Terminal } from 'lucide-react';
 import { translations, type Language } from '../data/translations';
 
 interface HeroSectionProps {
@@ -7,14 +7,7 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
-  const [copied, setCopied] = useState(false);
   const t = translations[currentLang].hero;
-
-  const copyCommand = () => {
-    navigator.clipboard.writeText('npm install @nextpaper/core');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
@@ -63,29 +56,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
               </a>
             </div>
 
-            {/* Quick CLI Install Bar */}
-            <div className="pt-2 max-w-xl">
-              <div className="bg-surface-light dark:bg-surface border border-slate-200 dark:border-outline-variant/40 rounded-lg p-3 flex items-center justify-between shadow-sm">
-                <div className="flex items-center gap-3 font-mono text-xs sm:text-sm text-outline dark:text-on-surface-variant">
-                  <span className="text-primary-container dark:text-primary font-bold">$</span>
-                  <span className="text-text-light-primary dark:text-surface-light select-all">
-                    npm install @nextpaper/core
-                  </span>
-                </div>
-                <button
-                  onClick={copyCommand}
-                  className="p-1.5 rounded text-slate-500 hover:text-text-light-primary dark:text-on-surface-variant dark:hover:text-surface-light transition-colors relative"
-                  title="Copy to clipboard"
-                >
-                  {copied ? (
-                    <Check className="w-4 h-4 text-emerald-500" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-
             {/* Trust Bullets */}
             <div className="flex flex-wrap items-center gap-6 pt-2 text-xs font-mono text-outline dark:text-on-surface-variant">
               <div className="flex items-center gap-1.5">
@@ -106,16 +76,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
 
           {/* Right Column: NextPaper Emblem & Telemetry Card */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            <div className="absolute -inset-2 bg-gradient-to-tr from-primary-container/20 to-tertiary/10 rounded-2xl blur-2xl -z-10"></div>
+            <div className="absolute -inset-2 bg-gradient-to-tr from-primary-container/20 to-tertiary/10 rounded-2xl blur-2xl -z-10" />
             
             <div className="w-full max-w-md bg-surface-light/80 dark:bg-surface/85 border border-slate-200 dark:border-outline-variant/40 rounded-xl p-6 shadow-2xl backdrop-blur-xl">
               
               {/* Window Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-outline-variant/20 mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                  <span className="w-3 h-3 rounded-full bg-green-500/80"></span>
+                  <span className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/80" />
                   <span className="ml-2 font-mono text-xs text-outline">artifact::paper_pipeline_v2</span>
                 </div>
                 <div className="px-2 py-0.5 rounded bg-primary-container/10 text-primary-container dark:text-primary font-mono text-xs">
@@ -165,4 +135,5 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
     </section>
   );
 };
+
 export default HeroSection;
